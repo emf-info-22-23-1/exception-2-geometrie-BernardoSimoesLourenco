@@ -11,25 +11,44 @@ public class Ctrl implements ICtrlIhm {
     public void demarrer() {
         refIhm.demarrer();
     }
-    
+
     @Override
-    public void selectCalcRadius( String value ) {
-        double valueDouble = Double.parseDouble( value );
-        refIhm.afficheResultatCircle( String.valueOf( refWorker.calcRadiusCircleFromArea( valueDouble ) ) );
+    public void selectCalcRadius(String value) {
+        try {
+            double valueDouble = Double.parseDouble(value);
+            refIhm.afficheResultatCircle(String.valueOf(refWorker.calcRadiusCircleFromArea(valueDouble)));
+            refIhm.afficheMessage("");
+        } catch (NumberFormatException e) {
+            refIhm.afficheMessage("La chaîne " + value + " n'est pas valide");
+        }
     }
 
     @Override
-    public void selectCalcLargeur( String valueArea, String valueLongueur ) {
-        double valueAreaDouble = Double.parseDouble( valueArea );
-        double valueLongueurDouble = Double.parseDouble( valueLongueur );
-        refIhm.afficheResultatRectangle( String.valueOf( refWorker.calcLargeurFromRectangle( valueAreaDouble, valueLongueurDouble ) ) );
+    public void selectCalcLargeur(String valueArea, String valueLongueur) {
+        double valueAreaDouble = 0.0;
+        double valueLongueurDouble = 0.0;
+        try {
+            valueAreaDouble = Double.parseDouble(valueArea);
+            valueLongueurDouble = Double.parseDouble(valueLongueur);
+            refIhm.afficheResultatRectangle(String.valueOf(refWorker.calcLargeurFromRectangle(valueAreaDouble, valueLongueurDouble)));
+
+        } catch (NumberFormatException e) {
+            if(e.getMessage().contains(valueArea) && e.getMessage().contains(valueLongueur)){
+                refIhm.afficheMessage("Veuillez entrer une valeur valide pour l'aire du rectangle (" + valueArea + " et " + valueLongueur +" invalide)");
+            } else if(e.getMessage().contains(valueLongueur)){
+                refIhm.afficheMessage("Veuillez entrer une valeur valide pour l'aire du rectangle (" + valueLongueur + " invalide)");
+            }else{
+                refIhm.afficheMessage("Veuillez entrer une valeur valide pour l'aire du rectangle (" + valueArea + " invalide)");
+            }
+        }
+
     }
 
-    public void setRefIhm( IIhmCtrl refIhm ) {
+    public void setRefIhm(IIhmCtrl refIhm) {
         this.refIhm = refIhm;
     }
 
-    public void setRefWorker( IWrkCtrl refWorker ) {
+    public void setRefWorker(IWrkCtrl refWorker) {
         this.refWorker = refWorker;
     }
 

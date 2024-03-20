@@ -17,6 +17,8 @@ public class Main {
         ihm.setRefCtrl( ctrl );
 
         ctrl.demarrer();
+        
+        
     }
 
 }
