@@ -25,19 +25,26 @@ public class Ctrl implements ICtrlIhm {
 
     @Override
     public void selectCalcLargeur(String valueArea, String valueLongueur) {
-        double valueAreaDouble = 0.0;
-        double valueLongueurDouble = 0.0;
+        double valueAreaDouble = 0;
+        double valueLongueurDouble = 0;
+        refIhm.afficheMessage("");
+
         try {
             valueAreaDouble = Double.parseDouble(valueArea);
+        } catch (NumberFormatException e) {
+
+            refIhm.afficheMessage("Veuillez entrer une valeur valide pour l'aire du rectangle ( " + valueArea + " invalide ) ");
+        }
+        try {
+            refIhm.afficheMessage("");
             valueLongueurDouble = Double.parseDouble(valueLongueur);
             refIhm.afficheResultatRectangle(String.valueOf(refWorker.calcLargeurFromRectangle(valueAreaDouble, valueLongueurDouble)));
 
         } catch (NumberFormatException e) {
-            if(e.getMessage().contains(valueLongueur)){
-                refIhm.afficheMessage("Veuillez entrer une valeur valide pour l'aire du rectangle (" + valueLongueur + " invalide)");
-            }else{
-                refIhm.afficheMessage("Veuillez entrer une valeur valide pour l'aire du rectangle (" + valueArea + " invalide)");
-            }
+            refIhm.afficheMessage("Veuillez entrer une valeur valide pour longueur du rectangle ( " + valueLongueur + " invalide ) ");
+        } catch (ArithmeticException e) {
+            refIhm.afficheMessage("Veuillez entrer une longueur, 0 non divisible. ");
+
         }
 
     }
