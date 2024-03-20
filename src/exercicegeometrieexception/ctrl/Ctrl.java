@@ -33,9 +33,7 @@ public class Ctrl implements ICtrlIhm {
             refIhm.afficheResultatRectangle(String.valueOf(refWorker.calcLargeurFromRectangle(valueAreaDouble, valueLongueurDouble)));
 
         } catch (NumberFormatException e) {
-            if(e.getMessage().contains(valueArea) && e.getMessage().contains(valueLongueur)){
-                refIhm.afficheMessage("Veuillez entrer une valeur valide pour l'aire du rectangle (" + valueArea + " et " + valueLongueur +" invalide)");
-            } else if(e.getMessage().contains(valueLongueur)){
+            if(e.getMessage().contains(valueLongueur)){
                 refIhm.afficheMessage("Veuillez entrer une valeur valide pour l'aire du rectangle (" + valueLongueur + " invalide)");
             }else{
                 refIhm.afficheMessage("Veuillez entrer une valeur valide pour l'aire du rectangle (" + valueArea + " invalide)");
